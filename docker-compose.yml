@@ -2,6 +2,15 @@ services:
     grafana:
         image: grafana/grafana-oss:latest
         container_name: grafana
+        # logging:
+        #     driver: loki
+        #     options:
+        #         loki-url: "https://<user_id>:<password>@.../loki/api/v1/push"
+        #         loki-retries: 2
+        #         loki-max-backoff: 800ms
+        #         loki-timeout: 1s
+        #         keep-file: "true"
+        #         mode: "non-blocking"
         ports:
             - "${GRAFANA_PORT:-3000}:3000"
         environment:
@@ -15,7 +24,7 @@ services:
         container_name: loki
         command: "-config.file=/etc/loki/local-config.yaml"
         volumes:
-            - loki-config.yml:/etc/loki/local-config.yaml:ro
+            - $PWD/loki-config.yml:/etc/loki/local-config.yaml:ro
         ports:
             - "${LOKI_PORT:-3100}:3100"
         restart: unless-stopped
