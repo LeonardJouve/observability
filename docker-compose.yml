@@ -5,10 +5,19 @@ services:
         ports:
             - "${GRAFANA_PORT:-3000}:3000"
         environment:
-            - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER:-admin}
-            - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-admin}
+            - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER}
+            - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
         volumes:
             - "grafana_storage:/var/lib/grafana"
+        restart: unless-stopped
+    loki:
+        image: grafana/loki:latest
+        container_name: loki
+        command: "-config.file=/etc/loki/local-config.yaml"
+        volumes:
+            - loki-config.yml:/etc/loki/local-config.yaml:ro
+        ports:
+            - "${LOKI_PORT:-3100}:3100"
         restart: unless-stopped
 
 volumes:
