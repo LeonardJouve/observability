@@ -1,6 +1,6 @@
 services:
     grafana:
-        image: grafana/grafana-oss:latest
+        image: grafana/grafana-oss:12.0.1-ubuntu
         container_name: grafana
         logging:
             driver: loki
@@ -38,7 +38,7 @@ services:
                 condition: service_healthy
         restart: unless-stopped
     loki:
-        image: grafana/loki:latest
+        image: grafana/loki:3.5.1-amd64
         container_name: loki
         command: "-config.file=/etc/loki/local-config.yaml -config.expand-env=true"
         volumes:
