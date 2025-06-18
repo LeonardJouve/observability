@@ -11,6 +11,9 @@ common:
         kvstore:
             store: inmemory
 
+querier:
+    multi_tenant_queries_enabled: true
+
 schema_config:
     configs:
     - from: 2020-05-15
