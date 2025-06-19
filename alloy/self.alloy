@@ -6,6 +6,6 @@ logging {
 
 loki.write "default" {
     endpoint {
-        url = "https://" + env("LOKI_USERNAME") + ":" + env("LOKI_PASSWORD") + "@logs.famillejouve.ch/loki/api/v1/push"
+        url = "https://" + sys.env("LOKI_USERNAME") + ":" + sys.env("LOKI_PASSWORD") + "@logs.famillejouve.ch/loki/api/v1/push"
     }
 }
