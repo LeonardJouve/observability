@@ -2,12 +2,8 @@ import.file "logs" {
     filename = "logs.alloy"
 }
 
-component "logs" {
-  source = import.logs
-}
-
 logging {
     level  = "info"
     format = "logfmt"
-    write_to = [component.logs.receiver]
+    write_to = [logs.logs]
 }
