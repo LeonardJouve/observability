@@ -1,19 +1,10 @@
 declare "logs" {
-    argument "loki_username" {
-        comment = sys.env("ALLOY_LOKI_USERNAME")
-    }
-
-    argument "loki_password" {
-        comment = sys.env("ALLOY_LOKI_PASSWORD")
-    }
-
-    argument "loki_endpoint" {
-        comment = sys.env("LOKI_ENDPOINT")
-    }
-
     loki.write "default" {
         endpoint {
-            url = strings.format("https://%s:%s@%s/loki/api/v1/push", self_collect.argument.loki_username.value, self_collect.argument.loki_password.value, self_collect.argument.loki_endpoint.value)
+            url = strings.format("https://%s:%s@%s/loki/api/v1/push",
+                sys.env("ALLOY_LOKI_USERNAME"),
+                sys.env("ALLOY_LOKI_PASSWORD"),
+                sys.env("LOKI_ENDPOINT"))
         }
     }
 
