@@ -1,4 +1,4 @@
-declare "loki" {
+declare "logs" {
     argument "loki_username" {
         comment = sys.env("ALLOY_LOKI_USERNAME")
     }

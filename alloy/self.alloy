@@ -1,9 +1,9 @@
 import.file "logging" {
-    filename = "loki.alloy"
+    filename = "logs.alloy"
 }
 
 logging {
     level  = "info"
     format = "logfmt"
-    write_to = [logging.loki.default.receiver]
+    write_to = [logging.logs.default.receiver]
 }
