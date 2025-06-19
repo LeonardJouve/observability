@@ -1,0 +1,8 @@
+loki.write "default" {
+    endpoint {
+        url = string.format("https://%s:%s@%s/loki/api/v1/push",
+            sys.env("ALLOY_LOKI_USERNAME"),
+            sys.env("ALLOY_LOKI_PASSWORD"),
+            sys.env("LOKI_ENDPOINT"))
+    }
+}
