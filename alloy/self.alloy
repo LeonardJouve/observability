@@ -9,5 +9,5 @@ component "logs" {
 logging {
     level  = "info"
     format = "logfmt"
-    write_to = [logs.logs.default.receiver]
+    write_to = [component.logs.receiver]
 }
