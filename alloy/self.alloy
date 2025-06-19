@@ -5,5 +5,5 @@ import.file "logs" {
 logging {
     level  = "info"
     format = "logfmt"
-    write_to = [import.file.logs.loki]
+    write_to = [import.file.logs.logs]
 }
