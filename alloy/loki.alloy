@@ -1,4 +1,4 @@
-declare "logs" {
+declare "loki" {
     loki.write "default" {
         endpoint {
             url = strings.format("https://%s:%s@%s/loki/api/v1/push",
