@@ -51,7 +51,7 @@ services:
             - /etc/alloy/
         volumes:
             - $PWD/alloy/:/etc/alloy/
-            - /var/run/docker.sock:/var/run/docker.sock
+            - /var/run/docker.sock:/var/run/docker.sock:ro
             - alloy_data:/var/lib/alloy/data
         ports:
             - "${ALLOY_PORT}:12345"
