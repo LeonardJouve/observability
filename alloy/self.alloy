@@ -1,25 +1,9 @@
-declare "self_collect" {
-    argument "loki_username" {
-        comment = sys.env("ALLOY_LOKI_USERNAME")
-    }
+import.file "logging" {
+    filename = "loki.alloy"
+}
 
-    argument "loki_password" {
-        comment = sys.env("ALLOY_LOKI_PASSWORD")
-    }
-
-    argument "loki_endpoint" {
-        comment = sys.env("LOKI_ENDPOINT")
-    }
-
-    logging {
-        level  = "info"
-        format = "logfmt"
-        write_to = [loki.write.default.receiver]
-    }
-
-    loki.write "default" {
-        endpoint {
-            url = strings.format("https://%s:%s@%s/loki/api/v1/push", argument.loki_username.value, argument.loki_password.value, argument.loki_endpoint.value)
-        }
-    }
+logging {
+    level  = "info"
+    format = "logfmt"
+    write_to = [logging.loki.default.receiver]
 }
