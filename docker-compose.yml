@@ -75,6 +75,7 @@ services:
         environment:
             - ALLOY_LOKI_USERNAME=${ALLOY_LOKI_USERNAME}
             - ALLOY_LOKI_PASSWORD=${ALLOY_LOKI_PASSWORD}
+            - LOKI_ENDPOINT=${LOKI_ENDPOINT}
         restart: unless-stopped
 
 volumes:

@@ -1,11 +1,25 @@
-logging {
-    level  = "info"
-    format = "logfmt"
-    write_to = [loki.write.default.receiver]
-}
+declare "self_collect" {
+    argument "loki_username" {
+        comment = sys.env("ALLOY_LOKI_USERNAME")
+    }
 
-loki.write "default" {
-    endpoint {
-        url = "https://" + sys.env("ALLOY_LOKI_USERNAME") + ":" + sys.env("ALLOY_LOKI_PASSWORD") + "@logs.famillejouve.ch/loki/api/v1/push"
+    argument "loki_password" {
+        comment = sys.env("ALLOY_LOKI_PASSWORD")
+    }
+
+    argument "loki_endpoint" {
+        comment = sys.env("LOKI_ENDPOINT")
+    }
+
+    logging {
+        level  = "info"
+        format = "logfmt"
+        write_to = [loki.write.default.receiver]
+    }
+
+    loki.write "default" {
+        endpoint {
+            url = strings.format("https://%s:%s@%s/loki/api/v1/push", argument.loki_username.value, argument.loki_password.value, argument.loki_endpoint.value)
+        }
     }
 }
