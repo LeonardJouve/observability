@@ -1,9 +1,9 @@
-import.file "logging" {
+import.file "logs" {
     filename = "logs.alloy"
 }
 
 logging {
     level  = "info"
     format = "logfmt"
-    write_to = [logging.logs.default.receiver]
+    write_to = [logs.logs.default.receiver]
 }
