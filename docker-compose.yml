@@ -2,15 +2,15 @@ services:
     grafana:
         image: grafana/grafana-oss:latest
         container_name: grafana
-        logging:
-            driver: loki
-            options:
-                loki-url: "https://${LOKI_USERNAME}:${LOKI_PASSWORD}@${LOKI_ENDPOINT}/loki/api/v1/push"
-                loki-retries: 2
-                loki-max-backoff: 800ms
-                loki-timeout: 1s
-                keep-file: "true"
-                mode: "non-blocking"
+        # logging:
+        #     driver: loki
+        #     options:
+        #         loki-url: "https://${LOKI_USERNAME}:${LOKI_PASSWORD}@${LOKI_ENDPOINT}/loki/api/v1/push"
+        #         loki-retries: 2
+        #         loki-max-backoff: 800ms
+        #         loki-timeout: 1s
+        #         keep-file: "true"
+        #         mode: "non-blocking"
         ports:
             - "${GRAFANA_PORT}:3000"
         environment:
@@ -33,9 +33,9 @@ services:
             - GF_SERVER_ROOT_URL=https://${GRAFANA_ENDPOINT}
         volumes:
             - "grafana_storage:/var/lib/grafana"
-        depends_on:
-            loki:
-                condition: service_healthy
+        # depends_on:
+        #     loki:
+        #         condition: service_healthy
         restart: unless-stopped
     loki:
         image: grafana/loki:latest
@@ -51,12 +51,12 @@ services:
             - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
         ports:
             - "${LOKI_PORT}:3100"
-        healthcheck:
-            test: ["CMD", "wget", "--spider", "--timeout=2", "--tries=1", "http://localhost:3100/ready"]
-            interval: 10s
-            timeout: 5s
-            retries: 5
-            start_period: 10s
+        # healthcheck:
+        #     test: ["CMD", "wget", "--spider", "--timeout=2", "--tries=1", "http://localhost:3100/ready"]
+        #     interval: 10s
+        #     timeout: 5s
+        #     retries: 5
+        #     start_period: 10s
         restart: unless-stopped
     alloy:
         image: grafana/alloy:latest
@@ -72,6 +72,10 @@ services:
             - alloy_data:/var/lib/alloy/data
         ports:
             - "${ALLOY_PORT}:12345"
+        environment:
+            - ALLOY_LOKI_USERNAME=${ALLOY_LOKI_USERNAME}
+            - ALLOY_LOKI_PASSWORD=${ALLOY_LOKI_PASSWORD}
+        restart: unless-stopped
 
 volumes:
     grafana_storage: {}
