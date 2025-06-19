@@ -1,0 +1,11 @@
+logging {
+    level  = "info"
+    format = "logfmt"
+    write_to = [loki.write.default.receiver]
+}
+
+loki.write "default" {
+    endpoint {
+        url = "https://${LOKI_USERNAME}:${LOKI_PASSWORD}@logs.famillejouve.ch/loki/api/v1/push"
+    }
+}
