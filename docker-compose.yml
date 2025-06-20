@@ -1,6 +1,6 @@
 services:
     grafana:
-        image: grafana/grafana-oss:latest
+        image: docker.io/grafana/grafana-oss:latest
         container_name: grafana
         ports:
             - "${GRAFANA_PORT}:3000"
@@ -26,7 +26,7 @@ services:
             - "grafana_storage:/var/lib/grafana"
         restart: unless-stopped
     loki:
-        image: grafana/loki:latest
+        image: docker.io/grafana/loki:latest
         container_name: loki
         command:
             - -config.file=/etc/loki/local-config.yaml
@@ -43,7 +43,7 @@ services:
             - "${LOKI_PORT}:3100"
         restart: unless-stopped
     alloy:
-        image: grafana/alloy:latest
+        image: docker.io/grafana/alloy:latest
         container_name: alloy
         command:
             - run
