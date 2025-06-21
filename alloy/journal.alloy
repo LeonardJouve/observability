@@ -5,11 +5,11 @@ loki.relabel "journal" {
         action        = "replace"
         target_label  = "service"
     }
-    // rule {
-    //     source_labels = ["service"]
-    //     action        = "keep"
-    //     regex         = "minecraft.service"
-    // }
+    rule {
+        source_labels = ["service"]
+        action        = "keep"
+        regex         = "minecraft.service"
+    }
 }
 
 loki.source.journal "journal" {
