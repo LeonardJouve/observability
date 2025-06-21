@@ -7,16 +7,17 @@ discovery.relabel "docker_relabel" {
 
     rule {
         source_labels = ["__meta_docker_container_name"]
-        regex = "/(.*)"
-        target_label = "container_name"
+        action        = "replace"
+        regex         = "/(.*)"
+        target_label  = "container_name"
     }
 }
 
 loki.source.docker "default" {
-    host       = "unix:///var/run/docker.sock"
-    targets    = discovery.docker.linux.targets
-    labels     = {"platform" = "docker"}
+    host          = "unix:///var/run/docker.sock"
+    targets       = discovery.docker.linux.targets
+    labels        = {"platform" = "docker"}
     relabel_rules = discovery.relabel.docker_relabel.rules
-    forward_to = [loki.write.default.receiver]
+    forward_to    = [loki.write.default.receiver]
 }
 

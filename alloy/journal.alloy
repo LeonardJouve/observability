@@ -1,0 +1,18 @@
+loki.relabel "journal" {
+    forward_to = []
+    rule {
+        source_labels = ["__journal__systemd_unit"]
+        action        = "replace"
+        target_label  = "service"
+    }
+    // rule {
+    //     source_labels = ["service"]
+    //     action        = "keep"
+    //     regex         = "minecraft.service"
+    // }
+}
+
+loki.source.journal "journal" {
+    forward_to    = [loki.write.default.receiver]
+    relabel_rules = loki.relabel.journal.rules
+}
